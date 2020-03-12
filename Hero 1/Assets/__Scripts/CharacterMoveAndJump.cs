@@ -1,23 +1,27 @@
 ﻿using UnityEngine;
+using UnityEngine.Serialization;
 
 public class CharacterMoveAndJump : MonoBehaviour
 {
-    [SerializeField]
-    private float speed = 4;
+    [SerializeField] private float speed = 4;
 
     public GameObject normalSprite; //Player without skill active
-    public GameObject earthSprite; // Player while earth is selected
-    public GameObject fireEffect; //Player has fire around them while selected
+    public GameObject earthEffect; // Rock sprite while player is selected
+    public GameObject fireEffect; //Player has fire around them while fire is selected
+    public GameObject airEffect; //Player has air around them while air is selected
+    public GameObject waterEffect; //Player has water around them while 
 
     public bool air = false;
     public bool fire = false;
     public bool water = false;
     public bool earth = false;
 
-    public float jumpHeight;
+    private float _jumpHeight;
     private bool _isJumping = false;
+    public float height = 0.05f;
+    public float heightPadding = 0.05f;
 
-    private    Rigidbody2D  rb;
+    private Rigidbody2D rb;
 
     // Start is called before the first frame update
     private void Start()
@@ -30,7 +34,7 @@ public class CharacterMoveAndJump : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space) && !_isJumping && !earth)
         {
-            rb.AddForce(Vector2.up * jumpHeight, ForceMode2D.Impulse);
+            rb.AddForce(Vector2.up * _jumpHeight, ForceMode2D.Impulse);
             _isJumping = true;
         }
 
@@ -45,11 +49,11 @@ public class CharacterMoveAndJump : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha1)) //AIR 
 
         {
-
-            earthSprite.SetActive(false);
+            earthEffect.SetActive(false);
             normalSprite.SetActive(true);
-
+            airEffect.SetActive(true);
             fireEffect.SetActive(false);
+            waterEffect.SetActive(false);
 
             air = true;
             fire = false;
@@ -59,10 +63,11 @@ public class CharacterMoveAndJump : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Alpha2)) //EARTH
         {
-            earthSprite.SetActive(true);
+            earthEffect.SetActive(true);
             normalSprite.SetActive(true);
-
             fireEffect.SetActive(false);
+            airEffect.SetActive(false);
+            waterEffect.SetActive(false);
 
             air = false;
             fire = false;
@@ -70,12 +75,13 @@ public class CharacterMoveAndJump : MonoBehaviour
             earth = true;
         }
 
-        if (Input.GetKeyDown(KeyCode.Alpha3))  //FIRE
+        if (Input.GetKeyDown(KeyCode.Alpha3)) //FIRE
         {
-
             fireEffect.SetActive(true);
-            earthSprite.SetActive(false);
+            earthEffect.SetActive(false);
             normalSprite.SetActive(true);
+            airEffect.SetActive(false);
+            waterEffect.SetActive(false);
 
             air = false;
             fire = true;
@@ -85,9 +91,12 @@ public class CharacterMoveAndJump : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Alpha4)) //WATER
         {
-            earthSprite.SetActive(false);
+            earthEffect.SetActive(false);
             normalSprite.SetActive(true);
             fireEffect.SetActive(false);
+            airEffect.SetActive(false);
+            waterEffect.SetActive(true);
+
 
             air = false;
             fire = false;
@@ -95,17 +104,26 @@ public class CharacterMoveAndJump : MonoBehaviour
             earth = false;
         }
 
+        if (Input.GetKeyDown(KeyCode.Alpha5))
+        {
+            
+            earthEffect.SetActive(false);
+            normalSprite.SetActive(true);
+            fireEffect.SetActive(false);
+            airEffect.SetActive(false);
+            waterEffect.SetActive(false);
+            
+        }
+
         if (air)
         {
-            rb.gravityScale = 1f;
-            jumpHeight = 4f;
-
+            rb.gravityScale = 2f;
+            _jumpHeight = 20f;
         }
         else
         {
-            rb.gravityScale = 4f;
-            jumpHeight = 20f;
-
+            rb.gravityScale = 6f;
+            _jumpHeight = 20f;
         }
     }
 
