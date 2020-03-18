@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
 
@@ -26,8 +27,17 @@ public class Player : MonoBehaviour
     private Vector2 _fireBallPos;
 
 
+    //Sword Attacks
+    public GameObject swordRight;
+    public GameObject swordLeft;
+    public float strikeCooldown = 0.1f;
+    public float nextStrike = 0.0f;
+    public bool canStrike;
+    public bool isStriking = false;
+
+
     //Cool-downs of abilities
-    public float cooldown = 1;
+    public float abilityCooldown = 1;
     public float nextAbility = 0.0f;
     public bool canUseAbility;
 
@@ -74,28 +84,59 @@ public class Player : MonoBehaviour
         }
 
 
+        //CHECK IF PLAYER CAN USE ABILITY
         canUseAbility = Time.time > nextAbility;
+
+        //CHECK IF PLAYER CAN STRIKE
+        canStrike = Time.time > nextStrike;
 
 
         //ACTION BUTTON
-        if (Input.GetKeyDown(KeyCode.E) && canUseAbility) // E Key will be used for action combat
+        if (Input.GetKeyDown(KeyCode.P) && canUseAbility) // P Key will be used for ability combat
         {
-            if (fire)
+            if (fire) //This is what happens when fire is selected
             {
-                if (_direction == 'R')
+                if (_direction == 'R') //if facing right
                 {
                     fireRight();
                 }
 
-                if (_direction == 'L')
+                if (_direction == 'L') //if facing left
                 {
                     fireLeft();
                 }
             }
 
-            nextAbility = Time.time + cooldown;
+            nextAbility = Time.time + abilityCooldown;
         }
 
+
+        //SWORD ATTACK
+        if (Input.GetKeyDown(KeyCode.O) && canStrike) // O Key will be used for weapon combat
+        {
+            isStriking = true; 
+            
+            if (_direction == 'R' && Time.time< Time.time + strikeCooldown)
+            {
+                swordRight.SetActive(true);
+                swordLeft.SetActive(false);
+            }
+
+            if (_direction == 'L')
+            {
+                swordLeft.SetActive(true);
+                swordRight.SetActive(false);
+            }
+
+
+            nextStrike = Time.time + strikeCooldown;
+
+        }
+        else
+        {
+            swordRight.SetActive(false);
+            swordLeft.SetActive(false);
+        }
 
         /*------------------------MOVEMENT-------------------------------*/
         if (Input.GetKeyDown(KeyCode.Space) && !_isJumping && !earth)
@@ -107,9 +148,9 @@ public class Player : MonoBehaviour
         // ----------------Movement----------------------------
         if (!earth)
         {
-            float movementHorizontal = Input.GetAxis("Horizontal");
+            var movementHorizontal = Input.GetAxis("Horizontal");
 
-            Vector2 movement = new Vector3(movementHorizontal, 0.01f);
+            var movement = new Vector2(movementHorizontal, 0.01f);
             _rb.AddForce(movement * speed);
         }
 
@@ -138,6 +179,7 @@ public class Player : MonoBehaviour
             fireEffect.SetActive(false);
             airEffect.SetActive(false);
             waterEffect.SetActive(false);
+
 
             air = false;
             fire = false;
@@ -190,10 +232,16 @@ public class Player : MonoBehaviour
             _rb.gravityScale = 2f;
             _jumpHeight = 20f;
         }
+
         else
         {
             _rb.gravityScale = 6f;
             _jumpHeight = 20f;
+        }
+
+        if (earth)
+        {
+            canStrike = false;
         }
     }
 
@@ -203,8 +251,9 @@ public class Player : MonoBehaviour
         isTargetable = true;
         normalSprite.SetActive(true);
     }
+    
 
-    //Player will be able to phase through enemies while unTargetable
+//Player will be able to phase through enemies while unTargetable
     private void phase()
     {
         isTargetable = false;
@@ -213,31 +262,34 @@ public class Player : MonoBehaviour
     }
 
 
-    //Checks if the player is grounded
+//Checks if the player is grounded
     private void OnCollisionEnter2D(Collision2D col)
     {
         if (col.gameObject.tag.Equals("Ground"))
         {
             _isJumping = false;
         }
+    }
 
+    private void OnTriggerStay2D(Collider2D col)
+    {
         if (isTargetable)
         {
             if (col.gameObject.tag.Equals("Enemy1"))
             {
-                playerHealth = playerHealth - 1;
+                playerHealth -= 1;
                 phase();
             }
 
             if (col.gameObject.tag.Equals("Enemy2"))
             {
-                playerHealth = playerHealth - 2;
+                playerHealth -= 2;
                 phase();
             }
 
             if (col.gameObject.tag.Equals("Enemy3"))
             {
-                playerHealth = playerHealth - 3;
+                playerHealth -= 3;
                 phase();
             }
         }
@@ -255,13 +307,13 @@ public class Player : MonoBehaviour
 
     private void fireRight()
     {
-        Vector2 spawnLocation = new Vector2(_rb.position.x + 1.5f, _rb.position.y + 0.05f);
+        var spawnLocation = new Vector2(_rb.position.x + 1.5f, _rb.position.y + 0.05f);
         Instantiate(fireBallRight, spawnLocation, Quaternion.identity);
     }
 
     private void fireLeft()
     {
-        Vector2 spawnLocation = new Vector2(_rb.position.x - 1.5f, _rb.position.y + 0.05f);
+        var spawnLocation = new Vector2(_rb.position.x - 1.5f, _rb.position.y + 0.05f);
         Instantiate(fireBallLeft, spawnLocation, Quaternion.identity);
     }
 }

@@ -9,6 +9,9 @@ TagManager:
   - Enemy2
   - Enemy3
   - FireBall
+  - Sword
+  - TurnLeft
+  - TurnRight
   layers:
   - Default
   - TransparentFX
