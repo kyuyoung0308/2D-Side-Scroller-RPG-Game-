@@ -15261,6 +15261,18 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 2066319893}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1312908382
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1312908381}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfc9cab7b70fa52478b7a3e077acd561, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!58 &1312908383
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -15701,6 +15713,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 4611435774447293572, guid: 6d310abf681dfc642bc534d09fda29ac, type: 3}
+    - {fileID: 1012369719682145955, guid: 6d310abf681dfc642bc534d09fda29ac, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 6d310abf681dfc642bc534d09fda29ac, type: 3}
 --- !u!1 &2068127030
 GameObject:
