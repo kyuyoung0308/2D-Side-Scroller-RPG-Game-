@@ -35,12 +35,6 @@ public class Boundary : MonoBehaviour
             targetPos.x = Mathf.Clamp(target.position.x, target.position.x, XMaxValue);
         }
 
-
-
-
-
-
-
         //align the camera and the target z position
         targetPos.z = transform.position.z;
 

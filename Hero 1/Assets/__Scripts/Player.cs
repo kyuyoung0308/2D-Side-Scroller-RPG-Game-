@@ -35,6 +35,14 @@ public class Player : MonoBehaviour
     public bool canStrike;
     public bool isStriking = false;
 
+    //Spear Attacks
+    public GameObject spearRight;
+    public GameObject spearLeft;
+    public float stabCooldown = 0.5f;
+    public float nextStab = 0.0f;
+    public bool canStab;
+    public bool isStabbing = false;
+
 
     //Cool-downs of abilities
     public float abilityCooldown = 1;
@@ -111,12 +119,34 @@ public class Player : MonoBehaviour
         }
 
 
+        /*//SPEAR ATTACK Using M key
+        if (Input.GetKeyDown(KeyCode.M) && canStab)
+        {
+            isStabbing = true; 
+            
+            if (_direction == 'R' && Time.time< Time.time + stabCooldown)
+            {
+                spearRight.SetActive(true);
+                spearLeft.SetActive(false);
+            }
+            if (_direction == 'L')
+            {
+                spearLeft.SetActive(true);
+                spearRight.SetActive(false);
+            }
+            nextStab= Time.time + stabCooldown;
+        }
+        else
+        {
+            spearRight.SetActive(false);
+            spearLeft.SetActive(false);
+        }*/
         //SWORD ATTACK
         if (Input.GetKeyDown(KeyCode.O) && canStrike) // O Key will be used for weapon combat
         {
-            isStriking = true; 
-            
-            if (_direction == 'R' && Time.time< Time.time + strikeCooldown)
+            isStriking = true;
+
+            if (_direction == 'R' && Time.time < Time.time + strikeCooldown)
             {
                 swordRight.SetActive(true);
                 swordLeft.SetActive(false);
