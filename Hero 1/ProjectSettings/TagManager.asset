@@ -12,6 +12,7 @@ TagManager:
   - Sword
   - TurnLeft
   - TurnRight
+  - Spear
   layers:
   - Default
   - TransparentFX

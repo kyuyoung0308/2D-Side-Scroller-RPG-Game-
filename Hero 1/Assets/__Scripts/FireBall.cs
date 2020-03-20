@@ -9,14 +9,14 @@ public class FireBall : MonoBehaviour
     private Rigidbody2D _rb;
 
 
-    void Start()
+    private void Start()
     {
         _rb = GetComponent<Rigidbody2D>();
         Destroy(gameObject, 3.0f);
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         _rb.velocity = new Vector2(velX, 0);
     }

@@ -76,7 +76,8 @@ public class Player : MonoBehaviour
         //Checking if player is dead
         if (playerHealth <= 0)
         {
-            Destroy(player);
+            SceneManager.LoadScene("Level1");
+            playerHealth = 3;
         }
 
 
@@ -98,8 +99,11 @@ public class Player : MonoBehaviour
         //CHECK IF PLAYER CAN STRIKE
         canStrike = Time.time > nextStrike;
 
+        //CHECKING IF PLAYER CAN STAB
+        canStab = Time.time > nextStab;
 
-        //ACTION BUTTON
+
+        //ABILITY BUTTON
         if (Input.GetKeyDown(KeyCode.P) && canUseAbility) // P Key will be used for ability combat
         {
             if (fire) //This is what happens when fire is selected
@@ -119,34 +123,35 @@ public class Player : MonoBehaviour
         }
 
 
-        /*//SPEAR ATTACK Using M key
+        //SPEAR ATTACK Using M key
         if (Input.GetKeyDown(KeyCode.M) && canStab)
         {
-            isStabbing = true; 
-            
-            if (_direction == 'R' && Time.time< Time.time + stabCooldown)
+            isStabbing = true;
+
+            if (_direction == 'R' && Time.time < Time.time + stabCooldown)
             {
                 spearRight.SetActive(true);
                 spearLeft.SetActive(false);
             }
+
             if (_direction == 'L')
             {
                 spearLeft.SetActive(true);
                 spearRight.SetActive(false);
             }
-            nextStab= Time.time + stabCooldown;
+
+            nextStab = Time.time + stabCooldown;
         }
         else
         {
             spearRight.SetActive(false);
             spearLeft.SetActive(false);
-        }*/
+        }
+
         //SWORD ATTACK
         if (Input.GetKeyDown(KeyCode.O) && canStrike) // O Key will be used for weapon combat
         {
-            isStriking = true;
-
-            if (_direction == 'R' && Time.time < Time.time + strikeCooldown)
+            if (_direction == 'R')
             {
                 swordRight.SetActive(true);
                 swordLeft.SetActive(false);
@@ -160,7 +165,6 @@ public class Player : MonoBehaviour
 
 
             nextStrike = Time.time + strikeCooldown;
-
         }
         else
         {
@@ -281,7 +285,7 @@ public class Player : MonoBehaviour
         isTargetable = true;
         normalSprite.SetActive(true);
     }
-    
+
 
 //Player will be able to phase through enemies while unTargetable
     private void phase()
@@ -337,13 +341,15 @@ public class Player : MonoBehaviour
 
     private void fireRight()
     {
-        var spawnLocation = new Vector2(_rb.position.x + 1.5f, _rb.position.y + 0.05f);
+        var position = _rb.position;
+        var spawnLocation = new Vector2(position.x + 1.5f, position.y + 0.05f);
         Instantiate(fireBallRight, spawnLocation, Quaternion.identity);
     }
 
     private void fireLeft()
     {
-        var spawnLocation = new Vector2(_rb.position.x - 1.5f, _rb.position.y + 0.05f);
+        var position = _rb.position;
+        var spawnLocation = new Vector2(position.x - 1.5f, position.y + 0.05f);
         Instantiate(fireBallLeft, spawnLocation, Quaternion.identity);
     }
 }
