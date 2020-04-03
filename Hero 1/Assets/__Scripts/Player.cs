@@ -8,6 +8,8 @@
 
     public class Player : MonoBehaviour
     {
+        public Animator animator;
+
         //player pos
         private static Vector2 _pos;
 
@@ -517,12 +519,14 @@
                 {
                     swordRight.SetActive(true);
                     swordLeft.SetActive(false);
+                    RightAttack();
                 }
 
                 if (_direction == 'L')
                 {
                     swordLeft.SetActive(true);
                     swordRight.SetActive(false);
+                    LeftAttack();
                 }
 
 
@@ -657,7 +661,14 @@
             shieldIcon.SetActive(false);
         }
 
-
+        void LeftAttack()
+        {
+            animator.SetTrigger("AttackL");
+        }
+        void RightAttack()
+        {
+            animator.SetTrigger("AttackR");
+        }
 //Player will be able to phase through enemies while unTargetable
         private void phase()
         {
