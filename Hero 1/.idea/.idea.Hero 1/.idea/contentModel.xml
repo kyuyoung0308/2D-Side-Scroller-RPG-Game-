@@ -7,14 +7,24 @@
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
       <e p="Assets" t="Include">
         <e p="__Scripts" t="Include">
+          <e p="AirBoss.cs" t="Include" />
+          <e p="Bird.cs" t="Include" />
           <e p="Boundary.cs" t="Include" />
-          <e p="Enemies.cs" t="Include" />
+          <e p="EarthBoss.cs" t="Include" />
+          <e p="Enemy1.cs" t="Include" />
+          <e p="Enemy3.cs" t="Include" />
+          <e p="FallingRock.cs" t="Include" />
           <e p="FireBall.cs" t="Include" />
+          <e p="FireDrop.cs" t="Include" />
+          <e p="FireDropSpawner.cs" t="Include" />
           <e p="FollowPlayer.cs" t="Include" />
+          <e p="Golem.cs" t="Include" />
           <e p="HeroSingleton.cs" t="Include" />
+          <e p="NewBehaviourScript.cs" t="Include" />
           <e p="Player.cs" t="Include" />
           <e p="Slime.cs" t="Include" />
           <e p="Sword.cs" t="Include" />
+          <e p="Whirlwind.cs" t="Include" />
         </e>
         <e p="_Sprites" t="Include">
           <e p="Villagers" t="Include">
@@ -23,6 +33,9 @@
           </e>
         </e>
         <e p="Ninja Files" t="Include">
+          <e p="Read Me.txt" t="Include" />
+        </e>
+        <e p="Pixel Bird" t="Include">
           <e p="Read Me.txt" t="Include" />
         </e>
       </e>

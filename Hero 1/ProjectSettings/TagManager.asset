@@ -13,6 +13,13 @@ TagManager:
   - TurnLeft
   - TurnRight
   - Spear
+  - FireSkill
+  - AirSkill
+  - EarthSkill
+  - WaterSkill
+  - Exp1
+  - Exp3
+  - Teleporter
   layers:
   - Default
   - TransparentFX
